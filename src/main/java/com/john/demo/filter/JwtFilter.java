@@ -28,13 +28,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authorizationHeader = request.getHeader("Authorization");
+        Optional<String> authorizationHeader = Optional.of(request.getHeader("Authorization"));
 
         Optional<String> token = Optional.empty();
         Optional<String> username = Optional.empty();
 
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            token = Optional.of(authorizationHeader.substring(7));
+        if (authorizationHeader.isPresent() && authorizationHeader.get().startsWith("Bearer ")) {
+            token = Optional.of(authorizationHeader.get().substring(7));
             username = Optional.of(jwtUtil.extractUsername(token.get()));
         }
 
