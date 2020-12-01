@@ -1,0 +1,11 @@
+spring:
+  h2:
+    console:
+      enabled: true
+
+authentication:
+  jwt:
+    secret: john_authentication_secret
+
+server:
+  port: 9191
